@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import io, { Socket } from "socket.io-client";
+import io from "socket.io-client";
 
 const SOCKET_SERVER_URL = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "https://gabbers-signaling.herokuapp.com";
 
@@ -18,7 +18,7 @@ interface VoiceRoomProps {
 }
 
 export default function VoiceRoom({ roomId }: VoiceRoomProps) {
-    const [socket, setSocket] = useState<Socket | null>(null);
+    const [socket, setSocket] = useState<ReturnType<typeof io> | null>(null);
     // Removed unused peerConnection state variable.
     const localAudioRef = useRef<HTMLAudioElement>(null);
     const remoteAudioRef = useRef<HTMLAudioElement>(null);
