@@ -1,65 +1,26 @@
-# Gabbers
+# Gabbers - Your Language Improvement Companion
 
-Gabbers is a real-time voice chat platform designed for language practice. Inspired by Clubhouse, Gabbers allows users to join virtual rooms for live conversation practice (starting with English for Persian speakers) and plans to support more languages in the future. The platform supports authentication via Google OAuth and local sign-in (using PostgreSQL), and it integrates WebRTC and Socket.io for real-time voice communication.
+Gabbers is a dynamic and supportive platform dedicated to helping you improve your language skills through real-time conversations and personalized feedback. Here's how Gabbers makes language learning engaging and effective:
 
-## Table of Contents
+## Real-Time Voice Rooms
+- **Live Conversation Practice:** Join interactive voice rooms where you can practice speaking with fellow learners and native speakers in a relaxed, real-world setting.
+- **Immersive Experience:** Simulate natural conversations that boost your confidence and help you master the nuances of your target language.
 
-- [Features](#features)
-- [Tech Stack](#tech-stack)
-- [Installation & Setup](#installation--setup)
-- [Environment Variables](#environment-variables)
-- [Usage](#usage)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
+## AI-Driven Topic Suggestions
+- **Fresh Conversation Starters:** Never run out of things to talk about! Gabbers uses smart AI to suggest engaging topics tailored to your interests and language level.
+- **Continuous Learning:** Explore a variety of topics that keep your conversations dynamic and help you expand your vocabulary and cultural knowledge.
 
-## Features
+## Personalized Speaking Feedback
+- **Constructive Evaluations:** Receive real-time feedback on your pronunciation, fluency, and grammar.
+- **Track Your Progress:** Identify strengths and areas for improvement with detailed insights, helping you focus on what matters most to enhance your speaking skills.
 
-- **Real-Time Voice Chat:**  
-  Engage in live voice conversations in dedicated rooms using WebRTC.
-  
-- **Multiple Authentication Options:**  
-  Sign in using Google OAuth or create a local account with email and password (securely stored in PostgreSQL).
+## Moderated and Supportive Community
+- **Safe Learning Environment:** Enjoy conversations in a friendly, moderated space that encourages respectful and constructive dialogue.
+- **Community Engagement:** Connect with a diverse network of language learners, share experiences, and learn together in a collaborative environment.
 
-- **Responsive & SEO-Friendly:**  
-  Built with Next.js 13 (using the new app directory) and Tailwind CSS for a modern, responsive UI.
+## Multi-Language Support
+- **Growing Language Options:** Initially designed to help Persian speakers practice English, Gabbers is expanding to support more languages, making it a versatile platform for learners worldwide.
 
-- **Scalable Architecture:**  
-  Uses Socket.io for signaling between peers, enabling scalable real-time communication.
+---
 
-- **Future Enhancements:**  
-  Planned AI integrations for topic suggestions, conversation moderation, and speaking performance evaluation.
-
-## Tech Stack
-
-- **Frontend:**  
-  - Next.js 13 (React, TypeScript, App Router)  
-  - Tailwind CSS
-
-- **Authentication:**  
-  - NextAuth (with Google Provider and Credentials Provider)  
-  - Firebase (for Google OAuth adapter)  
-  - bcryptjs for local password hashing
-
-- **Backend & Real-Time Communication:**  
-  - Node.js, Express, Socket.io (for signaling in WebRTC)
-  - WebRTC for peer-to-peer voice chat
-
-- **Database:**  
-  - PostgreSQL (for local user accounts and other structured data)
-  - Firebase Firestore (for dynamic data as needed)
-
-## Installation & Setup
-
-### Prerequisites
-
-- [Node.js](https://nodejs.org/) (v14 or above)
-- [PostgreSQL](https://www.postgresql.org/) installed and running
-- A Firebase project for authentication (and optionally Firestore)
-- A Google Cloud project with OAuth credentials for Google sign-in
-
-### Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/gabbers.git
-cd gabbers
+Experience a new way to master your language. Join Gabbers today and start improving your speaking skills, one conversation at a time!
