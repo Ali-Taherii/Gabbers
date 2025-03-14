@@ -3,7 +3,15 @@
 import { useEffect, useRef, useState } from "react";
 import io, { Socket } from "socket.io-client";
 
-const SOCKET_SERVER_URL = "http://localhost:4000"; // Your signaling server URL
+const SOCKET_SERVER_URL = process.env.NEXT_PUBLIC_SOCKET_SERVER_URL || "https://gabbers-signaling.herokuapp.com";
+
+interface SignalData {
+    type: "offer" | "answer" | "ice-candidate";
+    offer?: RTCSessionDescriptionInit;
+    answer?: RTCSessionDescriptionInit;
+    candidate?: RTCIceCandidateInit;
+    roomId: string;
+}
 
 interface VoiceRoomProps {
     roomId: string;
@@ -11,7 +19,7 @@ interface VoiceRoomProps {
 
 export default function VoiceRoom({ roomId }: VoiceRoomProps) {
     const [socket, setSocket] = useState<Socket | null>(null);
-    const [peerConnection, setPeerConnection] = useState<RTCPeerConnection | null>(null);
+    // Removed unused peerConnection state variable.
     const localAudioRef = useRef<HTMLAudioElement>(null);
     const remoteAudioRef = useRef<HTMLAudioElement>(null);
     const [localStream, setLocalStream] = useState<MediaStream | null>(null);
@@ -66,7 +74,7 @@ export default function VoiceRoom({ roomId }: VoiceRoomProps) {
                     type: "ice-candidate",
                     candidate: event.candidate,
                     roomId,
-                });
+                } as SignalData);
             }
         };
 
@@ -77,22 +85,17 @@ export default function VoiceRoom({ roomId }: VoiceRoomProps) {
             }
         };
 
-        setPeerConnection(pc);
-
         // Listen for signaling messages from the server
-        socket.on("signal", async (data: any) => {
+        socket.on("signal", async (data: SignalData) => {
             if (!pc) return;
-            if (data.type === "offer") {
-                // Received an offer; set remote description and create an answer
+            if (data.type === "offer" && data.offer) {
                 await pc.setRemoteDescription(new RTCSessionDescription(data.offer));
                 const answer = await pc.createAnswer();
                 await pc.setLocalDescription(answer);
-                socket.emit("signal", { type: "answer", answer, roomId });
-            } else if (data.type === "answer") {
-                // Received answer; set remote description
+                socket.emit("signal", { type: "answer", answer, roomId } as SignalData);
+            } else if (data.type === "answer" && data.answer) {
                 await pc.setRemoteDescription(new RTCSessionDescription(data.answer));
-            } else if (data.type === "ice-candidate") {
-                // Received ICE candidate; add it to the peer connection
+            } else if (data.type === "ice-candidate" && data.candidate) {
                 try {
                     await pc.addIceCandidate(data.candidate);
                 } catch (error) {
@@ -102,14 +105,12 @@ export default function VoiceRoom({ roomId }: VoiceRoomProps) {
         });
 
         // Notify server that we've joined the room.
-        // The server will respond with whether this client should be the offer initiator.
         socket.emit("join", { roomId });
-        socket.on("room-joined", async (data: any) => {
-            // If designated as initiator, create and send an offer.
+        socket.on("room-joined", async (data: { initiator: boolean }) => {
             if (data.initiator) {
                 const offer = await pc.createOffer();
                 await pc.setLocalDescription(offer);
-                socket.emit("signal", { type: "offer", offer, roomId });
+                socket.emit("signal", { type: "offer", offer, roomId } as SignalData);
             }
         });
 
