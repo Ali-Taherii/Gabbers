@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gabbers - Coming Soon</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: linear-gradient(#a8e6cf, #dcedc1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: 'Segoe UI', sans-serif;
+      color: #2e7d32;
+      flex-direction: column;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .grasshopper {
+      position: absolute;
+      width: 80px;
+      height: auto;
+      animation: jump 10s infinite ease-in-out;
+    }
+
+    @keyframes jump {
+      0%   { left: 100%; bottom: 0; transform: translateY(0); }
+      10%  { transform: translateY(-80px) rotate(10deg); }
+      20%  { left: 80%; bottom: 0; transform: translateY(0); }
+      30%  { transform: translateY(-100px) rotate(-10deg); }
+      40%  { left: 60%; bottom: 0; transform: translateY(0); }
+      50%  { transform: translateY(-90px) rotate(10deg); }
+      60%  { left: 40%; bottom: 0; transform: translateY(0); }
+      70%  { transform: translateY(-100px) rotate(-10deg); }
+      80%  { left: 20%; bottom: 0; transform: translateY(0); }
+      90%  { transform: translateY(-80px) rotate(10deg); }
+      100% { left: -10%; bottom: 0; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>Gabbers</h1>
+  <p>Coming Soon...</p>
+
+  <div class="grasshopper" style="bottom: 0; left: 100%;">
+    <!-- Inline SVG -->
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2048 2048">
+      <image href="grasshopper.svg" width="100%" height="100%" />
+    </svg>
+  </div>
+</body>
+</html>
